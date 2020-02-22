@@ -1,18 +1,25 @@
 function solution(N, A) {
-	let solution = [];
+	let len = A.length;
+	let lastMax = 0;
+	let max = 0;
+	let solution = new Array(N);
 
-	for (leti = 0; i < N; i++) {
-		solution.push(0);
-	}
-	for (let b = 0; b < A.length; b++) {
-		if (A[b] < N) {
-			solution[A[b] - 1] = solution[A[b] - 1] + 1;
+	for (let j = 0; j < N; j++) solution[j] = 0;
+
+	for (let j = 0; j < len; j++) {
+		if (A[j] < N + 1) {
+			i = A[j] - 1;
+			if (solution[i] < lastMax) solution[i] = lastMax;
+			solution[i]++;
+			if (max < solution[i]) max = solution[i];
 		} else {
-			var max_of_array = Math.max.apply(Math, solution);
-			for (let c = 0; c < N; c++) {
-				solution[c] = max_of_array;
-			}
+			lastMax = max;
 		}
 	}
+
+	for (let j = 0; j < N; j++) {
+		if (solution[j] < lastMax) solution[j] = lastMax;
+	}
+
 	return solution;
 }
